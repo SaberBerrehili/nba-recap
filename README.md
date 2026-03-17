@@ -63,6 +63,14 @@ To use the automation on your own fork, add your API key as a GitHub Secret name
 
 The workflow can also be triggered manually from the Actions tab using the `workflow_dispatch` event.
 
+
+## Sample output
+
+Below is an example of a generated recap file:
+
+![Sample output](assets/sample_output.png)
+
+
 ## Author
 
 Saber Berrehili — [LinkedIn](https://www.linkedin.com/in/saber-berrehili/)
