@@ -1,8 +1,7 @@
 from nba_api.stats.endpoints import boxscoretraditionalv2, leaguegamefinder
-from nba_api.library.http import NBAStatsHTTP
 import time
 
-NBAStatsHTTP.HEADERS = {
+HEADERS = {
     "Host": "stats.nba.com",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
     "Accept": "application/json, text/plain, */*",
@@ -19,6 +18,7 @@ def get_top_scorer(game_date: str, home_team_name: str):
     finder = leaguegamefinder.LeagueGameFinder(
         date_from_nullable=game_date,
         date_to_nullable=game_date,
+        headers=HEADERS,
     )
     games_df = finder.get_data_frames()[0]
 
@@ -30,7 +30,10 @@ def get_top_scorer(game_date: str, home_team_name: str):
     nba_game_id = match.iloc[0]["GAME_ID"]
 
     time.sleep(1)
-    boxscore = boxscoretraditionalv2.BoxScoreTraditionalV2(game_id=nba_game_id)
+    boxscore = boxscoretraditionalv2.BoxScoreTraditionalV2(
+        game_id=nba_game_id,
+        headers=HEADERS,
+    )
     players_df = boxscore.get_data_frames()[0]
 
     top = players_df.loc[players_df["PTS"].idxmax()]
