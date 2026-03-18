@@ -17,7 +17,7 @@ if API_KEY is None:
 api = BalldontlieAPI(api_key=API_KEY)
 init_db()
 
-games = api.nba.games.list(dates=date)
+games = api.nba.games.list(dates=[date])
 
 for game in games.data:
     if game.home_team_score > game.visitor_team_score:
